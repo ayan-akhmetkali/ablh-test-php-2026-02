@@ -1,0 +1,5 @@
+.git
+.gitignore
+vendor
+var/cache
+var/templates_c
