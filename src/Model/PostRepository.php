@@ -101,13 +101,14 @@ final class PostRepository
              FROM posts p
              INNER JOIN post_categories pc ON pc.post_id = p.id
              WHERE pc.category_id IN (
-                 SELECT category_id FROM post_categories WHERE post_id = :post_id
+                 SELECT category_id FROM post_categories WHERE post_id = :current_post_id
              )
-             AND p.id <> :post_id
+             AND p.id <> :excluded_post_id
              ORDER BY p.published_at DESC
              LIMIT :limit'
         );
-        $stmt->bindValue(':post_id', $postId, PDO::PARAM_INT);
+        $stmt->bindValue(':current_post_id', $postId, PDO::PARAM_INT);
+        $stmt->bindValue(':excluded_post_id', $postId, PDO::PARAM_INT);
         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
         $stmt->execute();
 
