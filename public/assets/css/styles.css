@@ -18,6 +18,7 @@ body {
     background: var(--page-bg);
     color: var(--text);
     line-height: 1.4;
+    overflow-wrap: anywhere;
 }
 
 .site-header {
@@ -102,6 +103,7 @@ a:hover {
 .post-card {
     border-top: 1px solid #e5e7eb;
     padding-top: 14px;
+    min-width: 0;
 }
 
 .post-card__title {
@@ -165,11 +167,68 @@ a:hover {
 
     .grid {
         grid-template-columns: 1fr;
+        gap: 12px;
     }
 
     .section-head,
     .page-head {
         flex-direction: column;
         align-items: flex-start;
+    }
+
+    .container {
+        padding: 18px 0 28px;
+    }
+
+    .section-card,
+    .card {
+        padding: 14px;
+        margin-bottom: 14px;
+    }
+
+    .page-title {
+        font-size: 32px;
+        line-height: 1.2;
+    }
+
+    h1 {
+        font-size: 28px;
+        line-height: 1.2;
+    }
+
+    h2 {
+        font-size: 22px;
+        line-height: 1.25;
+    }
+
+    .post-card__title {
+        font-size: 30px;
+        line-height: 1.25;
+        word-break: break-word;
+    }
+
+    .meta {
+        font-size: 17px;
+        line-height: 1.5;
+    }
+
+    .filters,
+    .pagination,
+    .nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 12px;
+        margin: 12px 0 16px;
+    }
+
+    .filters a,
+    .pagination a,
+    .pagination strong {
+        margin-right: 0;
+    }
+
+    .site-footer__inner {
+        font-size: 15px;
+        padding: 16px 0;
     }
 }
