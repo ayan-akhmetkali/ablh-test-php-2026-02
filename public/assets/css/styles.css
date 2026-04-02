@@ -17,11 +17,12 @@ body {
     font-family: Arial, sans-serif;
     background: var(--page-bg);
     color: var(--text);
-    line-height: 1.4;
+    line-height: 1.45;
     overflow-wrap: anywhere;
 }
 
-.site-header {
+.site-header,
+.site-footer {
     background: var(--header-bg);
     color: var(--header-text);
 }
@@ -68,21 +69,18 @@ body {
 
 h1,
 h2,
-h3 {
-    margin: 0;
+h3,
+p {
+    margin-top: 0;
 }
 
 .page-title {
-    margin: 0 0 16px;
+    margin-bottom: 16px;
 }
 
 .meta {
     color: var(--muted);
     font-size: 13px;
-}
-
-.section-description {
-    margin: 0 0 8px;
 }
 
 a {
@@ -112,7 +110,7 @@ a:hover {
 }
 
 .post-card__description {
-    margin: 0 0 8px;
+    margin-bottom: 8px;
 }
 
 .post-image {
@@ -130,8 +128,11 @@ a:hover {
 }
 
 .filters a,
+.filters strong,
 .pagination a,
-.pagination strong {
+.pagination strong,
+.nav a,
+.nav strong {
     margin-right: 8px;
 }
 
@@ -141,8 +142,6 @@ a:hover {
 }
 
 .site-footer {
-    background: var(--header-bg);
-    color: var(--header-text);
     margin-top: 28px;
 }
 
@@ -222,8 +221,11 @@ a:hover {
     }
 
     .filters a,
+    .filters strong,
     .pagination a,
-    .pagination strong {
+    .pagination strong,
+    .nav a,
+    .nav strong {
         margin-right: 0;
     }
 

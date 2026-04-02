@@ -7,6 +7,7 @@ services:
     command: >
       sh -lc "mkdir -p /var/www/html/var/cache /var/www/html/var/templates_c
       && chown -R www-data:www-data /var/www/html/var
+      && (./scripts/build-css.sh || true)
       && php-fpm"
     volumes:
       - ./:/var/www/html
