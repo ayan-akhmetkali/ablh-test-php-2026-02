@@ -2,6 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{$title|escape}</title>
     <meta name="description" content="{$post.description|default:'Статья блога'|escape}">
     <link rel="stylesheet" href="/assets/css/styles.css">
@@ -29,7 +30,7 @@
         <div class="post-content">{$post.content|escape}</div>
 
         <p class="meta">Просмотры: {$post.views|escape}</p>
-        <p class="meta">Дата публикации: {$post.published_at|escape}</p>
+        <p class="meta">Дата публикации: {$post.published_at|date_format:"%d.%m.%Y"}</p>
     </article>
 
     <section class="card">

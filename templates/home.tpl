@@ -2,6 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{$title|escape}</title>
     <meta name="description" content="{$metaDescription|default:'Блог'|escape}">
     <link rel="stylesheet" href="/assets/css/styles.css">
@@ -43,7 +44,7 @@
                             <a href="/post/{$post.slug|escape}">{$post.title|escape}</a>
                         </h3>
                         <p class="post-card__description">{$post.description|escape}</p>
-                        <p class="meta">Просмотры: {$post.views|escape}, дата: {$post.published_at|escape}</p>
+                        <p class="meta">Просмотры: {$post.views|escape}, дата: {$post.published_at|date_format:"%d.%m.%Y"}</p>
                     </article>
                 {/foreach}
             </div>
