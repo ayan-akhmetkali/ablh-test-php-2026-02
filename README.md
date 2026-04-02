@@ -27,6 +27,12 @@
 3. `docker compose exec app php scripts/seed.php`
 4. Открыть `http://localhost:8080`
 
+### Примечания по Docker Compose
+- Для входа в контейнер используйте: `docker compose exec app bash`
+  (флаг `-it` в Compose v2 обычно не нужен и может вызывать ошибку `exec: "-it": executable file not found`).
+- При старте сервиса `app` директории `var/cache` и `var/templates_c` создаются автоматически внутри `/var/www/html`,
+  чтобы Smarty и файловый кэш работали корректно при bind-mount `./:/var/www/html`.
+
 ## Запуск локально
 1. `composer install`
 2. `mysql -u root -p abelohost_blog < database/schema.sql`
