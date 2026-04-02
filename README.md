@@ -21,6 +21,16 @@
   - `templates/category.tpl`
   - `templates/post.tpl`
 
+
+## SCSS: подключение и компиляция
+- В шаблонах подключается **скомпилированный CSS**: `<link rel="stylesheet" href="/assets/css/styles.css">`.
+- Файл `public/assets/scss/styles.scss` используется как исходник для правок стилей.
+- Для запуска проекта компиляция **не обязательна** (актуальный `styles.css` уже в репозитории).
+- Если вы меняете SCSS, пересоберите CSS:
+  - локально: `./scripts/build-css.sh`
+  - в Docker: `docker compose exec app ./scripts/build-css.sh`
+- В `docker-compose.yml` для сервиса `app` вызов `./scripts/build-css.sh` добавлен в startup-команду (не блокирует запуск, если `sass` не установлен).
+
 ## Запуск через Docker
 1. `docker compose up -d --build`
 2. `docker compose exec app composer install`
