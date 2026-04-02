@@ -4,6 +4,10 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: ablh_app
+    command: >
+      sh -lc "mkdir -p /var/www/html/var/cache /var/www/html/var/templates_c
+      && chown -R www-data:www-data /var/www/html/var
+      && php-fpm"
     volumes:
       - ./:/var/www/html
     environment:
