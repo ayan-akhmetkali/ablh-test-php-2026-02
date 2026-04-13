@@ -11,6 +11,12 @@ if command -v sass >/dev/null 2>&1; then
   exit 0
 fi
 
+if command -v npx >/dev/null 2>&1; then
+  npx --yes sass --no-source-map --style=expanded "$SRC":"$DST"
+  echo "SCSS compiled via npx: $SRC -> $DST"
+  exit 0
+fi
+
 echo "sass compiler is not installed."
 echo "Install Dart Sass: https://sass-lang.com/install"
 echo "Then run: sass --no-source-map --style=expanded $SRC:$DST"

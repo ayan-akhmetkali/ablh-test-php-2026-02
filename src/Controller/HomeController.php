@@ -35,6 +35,7 @@ final class HomeController
             'title' => 'Главная',
             'categories' => $categories,
             'metaDescription' => 'Блог с категориями и статьями на PHP + MySQL + Smarty.',
+            'canonicalUrl' => '/',
         ]);
     }
 }

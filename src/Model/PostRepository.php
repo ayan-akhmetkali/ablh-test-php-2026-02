@@ -20,6 +20,8 @@ final class PostRepository
              FROM posts p
              INNER JOIN post_categories pc ON pc.post_id = p.id
              WHERE pc.category_id = :category_id
+               AND p.published_at IS NOT NULL
+               AND p.published_at <= NOW()
              ORDER BY p.published_at DESC
              LIMIT :limit'
         );
@@ -46,7 +48,9 @@ final class PostRepository
             'SELECT COUNT(*)
              FROM posts p
              INNER JOIN post_categories pc ON pc.post_id = p.id
-             WHERE pc.category_id = :category_id'
+             WHERE pc.category_id = :category_id
+               AND p.published_at IS NOT NULL
+               AND p.published_at <= NOW()'
         );
         $countStmt->execute(['category_id' => $categoryId]);
         $total = (int) $countStmt->fetchColumn();
@@ -56,6 +60,8 @@ final class PostRepository
              FROM posts p
              INNER JOIN post_categories pc ON pc.post_id = p.id
              WHERE pc.category_id = :category_id
+               AND p.published_at IS NOT NULL
+               AND p.published_at <= NOW()
              ORDER BY %s
              LIMIT :limit OFFSET :offset',
             $sortSql
@@ -80,6 +86,8 @@ final class PostRepository
             'SELECT id, slug, title, description, content, image, views, published_at
              FROM posts
              WHERE slug = :slug
+               AND published_at IS NOT NULL
+               AND published_at <= NOW()
              LIMIT 1'
         );
         $stmt->execute(['slug' => $slug]);
@@ -104,6 +112,8 @@ final class PostRepository
                  SELECT category_id FROM post_categories WHERE post_id = :current_post_id
              )
              AND p.id <> :excluded_post_id
+             AND p.published_at IS NOT NULL
+             AND p.published_at <= NOW()
              ORDER BY p.published_at DESC
              LIMIT :limit'
         );
@@ -112,6 +122,24 @@ final class PostRepository
         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
         $stmt->execute();
 
-        return $stmt->fetchAll();
+        $items = $stmt->fetchAll();
+        if ($items !== []) {
+            return $items;
+        }
+
+        $fallback = $this->pdo->prepare(
+            'SELECT id, slug, title, description, image, views, published_at
+             FROM posts
+             WHERE id <> :excluded_post_id
+               AND published_at IS NOT NULL
+               AND published_at <= NOW()
+             ORDER BY published_at DESC
+             LIMIT :limit'
+        );
+        $fallback->bindValue(':excluded_post_id', $postId, PDO::PARAM_INT);
+        $fallback->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $fallback->execute();
+
+        return $fallback->fetchAll();
     }
 }

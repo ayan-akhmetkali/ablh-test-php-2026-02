@@ -8,6 +8,9 @@ final class FileCache
 {
     public function __construct(private readonly string $cacheDir)
     {
+        if (!is_dir($this->cacheDir)) {
+            mkdir($this->cacheDir, 0775, true);
+        }
     }
 
     public function remember(string $key, int $ttlSeconds, callable $callback): mixed

@@ -27,7 +27,10 @@ final class CategoryController
         $category = $this->categories->findBySlug($slug);
         if ($category === false) {
             http_response_code(404);
-            echo 'Category not found';
+            $this->view->render('404.tpl', [
+                'title' => '404 Not Found',
+                'message' => 'Категория не найдена.',
+            ]);
             return;
         }
 
@@ -52,6 +55,12 @@ final class CategoryController
             ];
         });
 
+        if ($payload['page'] !== $requestedPage) {
+            $target = sprintf('/category/%s?sort=%s&page=%d', rawurlencode($slug), $sort, (int) $payload['page']);
+            header('Location: ' . $target, true, 302);
+            return;
+        }
+
         $this->view->render('category.tpl', [
             'title' => 'Категория: ' . $category['name'],
             'category' => $category,
@@ -60,6 +69,7 @@ final class CategoryController
             'currentPage' => $payload['page'],
             'totalPages' => $payload['totalPages'],
             'metaDescription' => 'Категория ' . $category['name'] . ': список статей с сортировкой и пагинацией.',
+            'canonicalUrl' => sprintf('/category/%s?sort=%s&page=%d', rawurlencode($slug), $sort, (int) $payload['page']),
         ]);
     }
 }
