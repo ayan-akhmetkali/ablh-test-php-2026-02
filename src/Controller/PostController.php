@@ -20,7 +20,10 @@ final class PostController
         $post = $this->posts->findOneBySlug($slug);
         if ($post === false) {
             http_response_code(404);
-            echo 'Post not found';
+            $this->view->render('404.tpl', [
+                'title' => '404 Not Found',
+                'message' => 'Статья не найдена.',
+            ]);
             return;
         }
 
@@ -32,6 +35,9 @@ final class PostController
             'title' => $post['title'],
             'post' => $post,
             'similarPosts' => $similar,
+            'canonicalUrl' => '/post/' . rawurlencode((string) $post['slug']),
+            'ogType' => 'article',
+            'metaDescription' => (string) ($post['description'] ?? 'Статья блога'),
         ]);
     }
 }
