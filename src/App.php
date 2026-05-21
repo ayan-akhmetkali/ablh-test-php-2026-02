@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Application\Category\GetCategoryPageData;
+use App\Application\Home\GetHomePageData;
+use App\Application\Post\GetPostPageData;
+use App\Application\Post\IncrementPostViews;
 use App\Cache\FileCache;
 use App\Controller\CategoryController;
 use App\Controller\ErrorController;
@@ -50,9 +54,14 @@ final class App
             $categoryRepository = new CategoryRepository($pdo);
             $postRepository = new PostRepository($pdo);
 
-            $homeController = new HomeController($view, $categoryRepository, $postRepository, $cache);
-            $categoryController = new CategoryController($view, $categoryRepository, $postRepository, $request, $cache);
-            $postController = new PostController($view, $postRepository);
+            $homeUseCase = new GetHomePageData($categoryRepository, $postRepository, $cache);
+            $categoryUseCase = new GetCategoryPageData($categoryRepository, $postRepository, $cache);
+            $postUseCase = new GetPostPageData($postRepository);
+            $incrementPostViews = new IncrementPostViews($postRepository);
+
+            $homeController = new HomeController($view, $homeUseCase);
+            $categoryController = new CategoryController($view, $request, $categoryUseCase);
+            $postController = new PostController($view, $postUseCase, $incrementPostViews);
             $errorController = new ErrorController($view);
             $seoController = new SeoController($categoryRepository, $postRepository, $cache, (string) $this->config['app_url']);
 

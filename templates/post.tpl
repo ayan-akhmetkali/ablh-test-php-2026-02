@@ -15,10 +15,9 @@
             <img class="post-image" src="{$post.image|escape}" alt="{$post.title|escape}">
         {/if}
 
-        <div class="post-content">{$post.content|escape}</div>
+        <div class="post-content">{$post.content|escape|nl2br}</div>
 
-        <p class="meta">Просмотры: {$post.views|escape}</p>
-        <p class="meta">Дата публикации: {$post.published_at|date_format:"%d.%m.%Y"}</p>
+        {include file='partials/post-meta.tpl' post=$post}
     </article>
 
     <section class="card">

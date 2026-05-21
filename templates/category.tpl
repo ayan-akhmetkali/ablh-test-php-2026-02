@@ -9,20 +9,7 @@
 
         <p>{$category.description|escape}</p>
 
-        <div class="filters">
-            Сортировка:
-            {if $sort === 'date'}
-                <strong>По дате</strong>
-            {else}
-                <a href="?sort=date&page=1">По дате</a>
-            {/if}
-
-            {if $sort === 'views'}
-                <strong>По просмотрам</strong>
-            {else}
-                <a href="?sort=views&page=1">По просмотрам</a>
-            {/if}
-        </div>
+        {include file='partials/sort-controls.tpl' sortOptions=$sortOptions}
 
         <div class="grid">
             {foreach $posts as $post}
@@ -32,17 +19,6 @@
             {/foreach}
         </div>
 
-        {if $totalPages > 1}
-            <div class="pagination">
-                Страницы:
-                {for $p=1 to $totalPages}
-                    {if $p === $currentPage}
-                        <strong>{$p}</strong>
-                    {else}
-                        <a href="?sort={$sort|escape}&page={$p}">{$p}</a>
-                    {/if}
-                {/for}
-            </div>
-        {/if}
+        {include file='partials/pagination.tpl' totalPages=$totalPages currentPage=$currentPage currentSort=$currentSort}
     </section>
 {/block}

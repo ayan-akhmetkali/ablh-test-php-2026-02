@@ -1,13 +1,12 @@
 $colors: (
-  page-bg: #f0f2f5,
+  page-bg: #f5f6f7,
   surface: #ffffff,
-  text: #1f2937,
-  muted: #6b7280,
-  accent: #1f5d75,
-  header-bg: #24576a,
-  header-text: #f8fafc,
-  border: #e5e7eb,
-  shadow: rgba(15, 23, 42, 0.06)
+  text: #3f4f59,
+  muted: #96a1a8,
+  accent: #607d8b,
+  header-bg: #2f5668,
+  header-text: #ffffff,
+  border: #e6eaed
 );
 
 $breakpoints: (
@@ -20,27 +19,8 @@ $breakpoints: (
 }
 
 @mixin container-width {
-  width: min(1120px, calc(100% - 40px));
+  width: min(1120px, calc(100% - 84px));
   margin: 0 auto;
-}
-
-@mixin smooth-link {
-  color: color(accent);
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
-}
-
-:root {
-  --page-bg: #{color(page-bg)};
-  --surface: #{color(surface)};
-  --text: #{color(text)};
-  --muted: #{color(muted)};
-  --accent: #{color(accent)};
-  --header-bg: #{color(header-bg)};
-  --header-text: #{color(header-text)};
 }
 
 * {
@@ -50,16 +30,15 @@ $breakpoints: (
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: var(--page-bg);
-  color: var(--text);
-  line-height: 1.45;
-  overflow-wrap: anywhere;
+  background: color(page-bg);
+  color: color(text);
+  line-height: 1.38;
 }
 
 .site-header,
 .site-footer {
-  background: var(--header-bg);
-  color: var(--header-text);
+  background: color(header-bg);
+  color: color(header-text);
 }
 
 .site-header__inner,
@@ -69,27 +48,28 @@ body {
 }
 
 .site-header__inner {
-  padding: 18px 0;
+  padding: 12px 0;
 }
 
 .logo {
-  font-size: 24px;
+  font-size: 14px;
   font-weight: 700;
-  color: var(--header-text);
+  color: color(header-text);
   text-decoration: none;
+  letter-spacing: 0.2px;
 }
 
 .container {
-  padding: 30px 0 40px;
+  padding: 22px 0 34px;
 }
 
 .section-card,
 .card {
-  background: var(--surface);
-  border-radius: 10px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 10px color(shadow);
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  margin: 0 0 40px;
+  box-shadow: none;
 }
 
 .section-head,
@@ -108,72 +88,104 @@ p {
   margin-top: 0;
 }
 
-.page-title {
-  margin-bottom: 16px;
+h1,
+h2,
+h3 {
+  color: #2f3f49;
 }
 
-.meta {
-  color: var(--muted);
-  font-size: 13px;
+h1 {
+  margin-bottom: 8px;
+}
+
+h2 {
+  margin-bottom: 10px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.page-title {
+  display: none;
+}
+
+.meta,
+.post-card__description {
+  color: color(muted);
+  font-size: 11px;
+  line-height: 1.45;
 }
 
 a {
-  @include smooth-link;
+  color: color(accent);
+  text-decoration: underline;
+  font-size: 11px;
+}
+
+a:hover {
+  opacity: 0.85;
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
+  gap: 14px;
 }
 
 .post-card {
-  border-top: 1px solid color(border);
-  padding-top: 14px;
+  border: 0;
+  background: transparent;
+  padding: 0;
   min-width: 0;
 
   &__title {
-    margin-bottom: 8px;
-    font-size: 18px;
+    margin: 0 0 8px;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: #4a5a64;
   }
 
   &__description {
-    margin-bottom: 8px;
+    margin: 0 0 8px;
   }
 }
 
 .post-image {
   width: 100%;
-  border-radius: 8px;
-  margin-bottom: 12px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  aspect-ratio: 16 / 10;
   object-fit: cover;
-  max-height: 220px;
 }
 
 .filters,
 .pagination,
 .nav {
-  margin: 12px 0 18px;
+  margin: 10px 0 14px;
 
   a,
   strong {
     margin-right: 8px;
+    font-size: 12px;
   }
 }
 
 .post-content {
   margin: 12px 0;
   white-space: pre-wrap;
+  font-size: 13px;
 }
 
 .site-footer {
-  margin-top: 28px;
+  margin-top: 24px;
 }
 
 .site-footer__inner {
   text-align: center;
-  padding: 20px 0;
-  font-size: 14px;
+  padding: 16px 0;
+  font-size: 10px;
+  letter-spacing: 0.2px;
 }
 
 @media (max-width: map-get($breakpoints, md)) {
@@ -186,7 +198,7 @@ a {
   .site-header__inner,
   .container,
   .site-footer__inner {
-    width: min(1120px, calc(100% - 28px));
+    width: min(1120px, calc(100% - 32px));
   }
 
   .grid {
@@ -201,57 +213,11 @@ a {
   }
 
   .container {
-    padding: 18px 0 28px;
+    padding: 18px 0 26px;
   }
 
   .section-card,
   .card {
-    padding: 14px;
-    margin-bottom: 14px;
-  }
-
-  .page-title {
-    font-size: 32px;
-    line-height: 1.2;
-  }
-
-  h1 {
-    font-size: 28px;
-    line-height: 1.2;
-  }
-
-  h2 {
-    font-size: 22px;
-    line-height: 1.25;
-  }
-
-  .post-card__title {
-    font-size: 30px;
-    line-height: 1.25;
-    word-break: break-word;
-  }
-
-  .meta {
-    font-size: 17px;
-    line-height: 1.5;
-  }
-
-  .filters,
-  .pagination,
-  .nav {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px 12px;
-    margin: 12px 0 16px;
-
-    a,
-    strong {
-      margin-right: 0;
-    }
-  }
-
-  .site-footer__inner {
-    font-size: 15px;
-    padding: 16px 0;
+    margin-bottom: 28px;
   }
 }
