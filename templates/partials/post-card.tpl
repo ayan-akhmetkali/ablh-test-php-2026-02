@@ -12,6 +12,6 @@
     {/if}
 
     {if $showMeta|default:true}
-        <p class="meta">Просмотры: {$post.views|escape}{if $post.published_at|default:''}, дата: {$post.published_at|date_format:"%d.%m.%Y"}{/if}</p>
+        {include file='partials/post-meta.tpl' post=$post}
     {/if}
 </article>
